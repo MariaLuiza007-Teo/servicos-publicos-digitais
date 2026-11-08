@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "API do assistente \"Qual serviço eu preciso?\" (Llama + RAG)",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js --port=3001",
+    "start": "node src/server.js",
+    "rag:ingest": "node scripts/ingest.js",
+    "test": "node --test \"src/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.3"
+  }
+}
