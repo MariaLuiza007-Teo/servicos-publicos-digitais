@@ -5,8 +5,8 @@
 - **Título:** Inclusão Digital: Acesso aos Serviços Públicos Digitais
 - **Curso:** Sistemas de Informação (com a área de Análise de Risco em TI), 5º período, 2º semestre de 2026
 - **Orientadores:** Jean Da Silva Holguim e Luiz Wanderley Nagata Balduino
-- **Comunidade atendida:** alunos do Ensino Médio (16 a 17 anos, em sua maioria) e da EJA (idades
-  variadas) participantes do projeto de extensão, em Manaus (AM)
+- **Comunidade atendida:** alunos do Ensino Médio (16 a 17 anos, em sua maioria) participantes do
+  projeto de extensão, em Manaus (AM)
 - **Objetivo geral:** promover a inclusão digital por meio da capacitação para o uso seguro e eficiente
   dos serviços públicos digitais, fortalecendo a cidadania e o acesso a direitos.
 - **Entregas do semestre:** palestra com a dinâmica "Golpe ou Real?", materiais educativos
@@ -18,7 +18,7 @@ O diagnóstico feito no formulário do projeto mostrou que:
 
 - os alunos usam bem o celular, mas para **redes sociais, jogos e conversa**, não para serviços públicos;
 - muitos dependem **só do celular** para acessar a internet;
-- há **medo de golpes** e de errar, o que gera insegurança e ansiedade (principalmente na EJA);
+- há **medo de golpes** e de errar, o que gera insegurança e ansiedade;
 - faltam **materiais simples, passo a passo**, sobre contas governamentais e navegação segura;
 - os serviços mais úteis são os de **saúde** (Meu SUS Digital, vacinação), **educação** (ENEM, Pé-de-Meia),
   **trabalho** (Carteira de Trabalho Digital) e **documentos** (CPF, título de eleitor).

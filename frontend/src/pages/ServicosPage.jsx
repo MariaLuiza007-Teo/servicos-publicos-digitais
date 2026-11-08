@@ -44,7 +44,7 @@ export function ServicosPage() {
       <header className="page-header">
         <h1>Serviços públicos digitais</h1>
         <p className="page-header__lead">
-          Os principais serviços para quem está no Ensino Médio ou na EJA. Todos são gratuitos e os links levam aos
+          Os principais serviços para quem está no Ensino Médio. Todos são gratuitos e os links levam aos
           sites oficiais.
         </p>
       </header>

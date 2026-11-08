@@ -6,7 +6,7 @@ Detalhes de cada área ficam em `docs/` — os links estão no fim deste arquivo
 ## O que é
 
 Site do projeto de extensão universitária **"Inclusão Digital: Acesso aos Serviços Públicos Digitais"**
-(curso de Sistemas de Informação, 5º período, 2026.2), feito para alunos do **Ensino Médio e da EJA**
+(curso de Sistemas de Informação, 5º período, 2026.2), feito para alunos do **Ensino Médio**
 participantes do projeto. O público usa principalmente **celular**, muitas
 vezes simples e com internet limitada, e tem pouca familiaridade com serviços digitais.
 
@@ -76,7 +76,7 @@ guia-cidadao-digital/
 ## Regras do projeto (não negociáveis)
 
 1. **Linguagem simples** em todo texto visível: frases curtas, sem jargão, português do Brasil.
-   O público é Ensino Médio e EJA. Termo técnico só se for explicado na mesma frase.
+   O público são alunos do Ensino Médio. Termo técnico só se for explicado na mesma frase.
 2. **Nenhum dado pessoal é coletado.** Sem cadastro, login, analytics ou cookies de rastreamento.
    CPF, cartão e e-mail são mascarados no frontend (`lib/privacy.js`) **e** no backend
    (`utils/privacy.js`) antes de ir para a IA. Mantenha os dois arquivos iguais.

@@ -9,7 +9,7 @@ Todo o texto do Guia fica em dois arquivos. Os componentes só exibem o que est�
 
 ## Como escrever
 
-- **Para quem:** um aluno de 16 anos ou um adulto da EJA que usa pouco a internet.
+- **Para quem:** um aluno do Ensino Médio, de 16 ou 17 anos, que usa pouco a internet para resolver serviços.
 - **Frases curtas** (até 25 palavras), voz ativa, "você".
 - **Sem jargão.** Se precisar de um termo técnico, explique na mesma frase:
   "engenharia social, que é enganar a pessoa em vez de invadir o celular".
