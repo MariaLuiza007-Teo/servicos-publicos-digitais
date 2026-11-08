@@ -40,7 +40,7 @@ Ela está **vazia de propósito**: a alimentação da base é a próxima etapa d
 | `cadunico.md` | Cadastro Único e programas sociais | https://www.gov.br/mds/pt-br/acoes-e-programas/cadastro-unico |
 | `registrato-e-valores-a-receber.md` | Contas no seu nome e dinheiro esquecido | https://www.bcb.gov.br/meubc/registrato |
 | `golpes-digitais.md` | Golpes comuns e o que fazer se cair | https://cartilha.cert.br |
-| `atendimento-presencial-manaus.md` | PAC, CRAS e UBS perto da escola | Sites do Governo do Amazonas e da Prefeitura de Manaus |
+| `atendimento-presencial-manaus.md` | PAC, CRAS e UBS em Manaus | Sites do Governo do Amazonas e da Prefeitura de Manaus |
 
 O conteúdo das páginas do Guia (`frontend/src/data/temas.js` e `servicos.js`) também pode
 ser adaptado para cá, já que já está em linguagem simples e com fontes.

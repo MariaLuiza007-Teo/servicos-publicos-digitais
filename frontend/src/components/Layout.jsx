@@ -76,7 +76,7 @@ export function Layout() {
         <div className="container">
           <p>
             <strong>Este não é um site do governo.</strong> É um projeto de extensão de estudantes de
-            Sistemas de Informação, feito para a Escola Estadual Nossa Senhora Aparecida (Manaus, AM).
+            Sistemas de Informação.
           </p>
           <p>
             Os serviços citados aqui são oficiais e gratuitos. Sempre confira as informações nos sites que terminam

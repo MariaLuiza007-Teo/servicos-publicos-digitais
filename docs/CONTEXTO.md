@@ -6,10 +6,10 @@
 - **Curso:** Sistemas de Informação (com a área de Análise de Risco em TI), 5º período, 2º semestre de 2026
 - **Orientadores:** Jean Da Silva Holguim e Luiz Wanderley Nagata Balduino
 - **Comunidade atendida:** alunos do Ensino Médio (16 a 17 anos, em sua maioria) e da EJA (idades
-  variadas) da **Escola Estadual Nossa Senhora Aparecida**, R. Alexandre Amorim, 325, Aparecida, Manaus (AM)
+  variadas) participantes do projeto de extensão, em Manaus (AM)
 - **Objetivo geral:** promover a inclusão digital por meio da capacitação para o uso seguro e eficiente
   dos serviços públicos digitais, fortalecendo a cidadania e o acesso a direitos.
-- **Entregas do semestre:** palestra na escola com a dinâmica "Golpe ou Real?", materiais educativos
+- **Entregas do semestre:** palestra com a dinâmica "Golpe ou Real?", materiais educativos
   e o resumo expandido apresentado na socialização de novembro. Este site é um dos materiais educativos.
 
 ## Quem usa o site

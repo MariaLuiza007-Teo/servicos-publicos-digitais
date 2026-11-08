@@ -6,8 +6,8 @@ Detalhes de cada área ficam em `docs/` — os links estão no fim deste arquivo
 ## O que é
 
 Site do projeto de extensão universitária **"Inclusão Digital: Acesso aos Serviços Públicos Digitais"**
-(curso de Sistemas de Informação, 5º período, 2026.2), feito para alunos do **Ensino Médio e da EJA da
-Escola Estadual Nossa Senhora Aparecida (Manaus, AM)**. O público usa principalmente **celular**, muitas
+(curso de Sistemas de Informação, 5º período, 2026.2), feito para alunos do **Ensino Médio e da EJA**
+participantes do projeto. O público usa principalmente **celular**, muitas
 vezes simples e com internet limitada, e tem pouca familiaridade com serviços digitais.
 
 O site tem três abas:

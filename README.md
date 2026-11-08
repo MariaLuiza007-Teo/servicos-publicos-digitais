@@ -1,7 +1,7 @@
 # Guia do Cidadão Digital
 
 Site do projeto de extensão **Inclusão Digital: Acesso aos Serviços Públicos Digitais** (Sistemas de
-Informação, 2026.2), feito para os alunos da Escola Estadual Nossa Senhora Aparecida, em Manaus (AM).
+Informação, 2026.2).
 
 | Aba | O que faz |
 | --- | --- |
