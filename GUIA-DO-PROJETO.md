@@ -30,7 +30,7 @@ O site tem três abas:
   Busca por palavras-chave (BM25, padrão) ou embeddings (`bge-m3` via Ollama).
 - **Monorepo** com npm workspaces (`frontend/`, `backend/`). Node >= 20.19 (testado no 24).
 
-## Comandos (sempre na raiz `guia-cidadao-digital/`)
+## Comandos (sempre na raiz `servicos-publicos-digitais/`)
 
 ```bash
 npm install            # instala tudo (frontend + backend)
@@ -47,7 +47,7 @@ Sem `backend/.env`, a API sobe em modo `mock` (respostas de demonstração). Par
 ## Estrutura
 
 ```
-guia-cidadao-digital/
+servicos-publicos-digitais/
 ├── GUIA-DO-PROJETO.md, README.md
 ├── docs/                        # contexto detalhado (ler conforme a tarefa)
 ├── frontend/
@@ -85,8 +85,9 @@ guia-cidadao-digital/
 4. **Não imitar o gov.br.** Nada de logos, cores ou visual do governo. O rodapé deixa claro que o site
    não é oficial. (Ensinamos a desconfiar de sites que imitam o governo — não podemos ser um.)
 5. **Chaves de API nunca no frontend nem no Git.** Ficam só em `backend/.env` (ignorado pelo Git).
-6. **Mobile first e acessível:** alvo de toque ≥ 44px, foco visível, `aria-*` corretos, contraste AA,
-   funciona com letra ampliada (controle A / A+ / A++). Teste em 375px de largura.
+6. **Bom no celular e no computador, e acessível:** alvo de toque ≥ 44px, foco visível, `aria-*`
+   corretos, contraste AA, funciona com letra ampliada (controle A / A+ / A++). Teste em 375px e em
+   1280px. Visual calmo e simples, com as regras de `docs/DESIGN.md`.
 7. **O verificador de links nunca abre nem envia o link** para lugar nenhum. A análise é local.
 8. **O assistente orienta, não executa serviços.** As regras de segurança do prompt
    (`backend/src/prompts/system.js`, itens 3 a 7) não podem ser removidas.
@@ -110,18 +111,22 @@ guia-cidadao-digital/
 - **Melhorar o verificador:** listas no topo de `frontend/src/lib/linkChecker.js` + testes →
   `docs/VERIFICADOR-LINKS.md`.
 - **Nova página:** criar em `pages/`, registrar rota em `App.jsx`; se for aba, em `TABS` no `Layout.jsx`.
+- **Mudar o visual:** `frontend/src/styles/index.css` → `docs/DESIGN.md` (cores, tamanhos de tela, peças prontas).
 
-Depois de qualquer mudança: `npm test` e `npm run build` precisam passar. Para mudanças visuais, abra o
-site em largura de celular (375px) e no modo escuro.
+Depois de qualquer mudança: `npm test` e `npm run build` precisam passar. Para mudanças visuais, siga a
+lista "Antes de terminar uma mudança visual" do `docs/DESIGN.md` (celular, computador, modo escuro, A++).
 
 ## Situação atual (atualize ao terminar uma etapa)
 
 - [x] Estrutura do site, 3 abas, conteúdo dos 5 temas e 15 serviços (links conferidos em 2026-11-07,
       exceto e-Título — o site do TSE bloqueia verificação automática; conferir à mão).
 - [x] Backend com streaming, RAG (BM25 + embeddings opcionais), modo mock, mascaramento de dados.
-- [ ] **Próximo passo:** escrever os documentos do RAG (`backend/rag/documentos/`) e rodar o ingest.
+- [x] Novo design (2026-11-08): visual mais calmo e layout próprio para computador. Regras em `docs/DESIGN.md`.
+- [ ] Frontend: conferir à mão o link do e-Título, título da aba do navegador mudar em cada página,
+      testar num celular de verdade.
+- [ ] Escrever os documentos do RAG (`backend/rag/documentos/`) e rodar o ingest.
 - [ ] Instalar Ollama + Llama nos computadores da equipe (ou criar chave na Groq) e testar respostas reais.
-- [ ] Publicar o site (ver `docs/DEPLOY.md`).
+- [ ] Publicar o site na Netlify e a API no Render (ver `docs/DEPLOY.md`). Vercel não será usada.
 
 ## Documentação
 
@@ -132,5 +137,6 @@ site em largura de celular (375px) e no modo escuro.
 | `docs/ASSISTENTE-IA.md` | Configurar Llama (Ollama/Groq), RAG, prompt, problemas comuns |
 | `docs/VERIFICADOR-LINKS.md` | Regras do verificador e como ampliá-las |
 | `docs/CONTEUDO.md` | Como escrever e editar o conteúdo do Guia |
+| `docs/DESIGN.md` | Cores, letra, tamanhos de tela e peças visuais; o que conferir após mudar o visual |
 | `docs/COLABORACAO.md` | Setup em cada computador, Git e divisão de tarefas |
 | `docs/DEPLOY.md` | Como publicar o site e a API |

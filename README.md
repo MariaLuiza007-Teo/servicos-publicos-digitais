@@ -47,7 +47,8 @@ npm run rag:ingest
 - [docs/VERIFICADOR-LINKS.md](docs/VERIFICADOR-LINKS.md): regras do verificador de links
 - [docs/CONTEUDO.md](docs/CONTEUDO.md): como escrever e editar o conteúdo
 - [docs/COLABORACAO.md](docs/COLABORACAO.md): como trabalhar em dupla, cada um no seu computador
-- [docs/DEPLOY.md](docs/DEPLOY.md): como publicar
+- [docs/DESIGN.md](docs/DESIGN.md): cores, letra, tamanhos de tela e peças visuais
+- [docs/DEPLOY.md](docs/DEPLOY.md): como publicar (site na Netlify, API no Render)
 
 > Este não é um site do governo. Os serviços citados são oficiais e gratuitos; confira sempre nos
 > endereços que terminam em `.gov.br`.

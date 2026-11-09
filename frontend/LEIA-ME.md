@@ -13,7 +13,8 @@ Complementa o `GUIA-DO-PROJETO.md` da raiz. Vale para tudo dentro de `frontend/`
   `src/components/icons.jsx`.
 - Estilos: um arquivo só (`src/styles/index.css`), com variáveis em `:root` e tema escuro em
   `@media (prefers-color-scheme: dark)`. Use as variáveis (`--primary`, `--perigo`...) — nunca cores
-  soltas. Classes no estilo BEM simples (`bloco__parte--variacao`).
+  soltas. Classes no estilo BEM simples (`bloco__parte--variacao`). Cores, tamanhos de tela
+  (720px, 1024px, 1100px) e peças prontas estão em `docs/DESIGN.md`; leia antes de mudar o visual.
 - Links externos: sempre `<ExternalLink>` (abre em nova aba com `rel="noopener noreferrer"` e aviso para
   leitor de tela).
 - Chamadas à API só por `src/lib/chatApi.js`. Em dev, `/api` vai para `localhost:3001` (proxy do Vite);

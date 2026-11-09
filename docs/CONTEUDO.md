@@ -74,6 +74,7 @@ verificação automática, então ele está com `conferidoEm: null` e precisa se
 ## Identidade visual
 
 - Cores próprias (verde-azulado `#0b5d52`). **Não usar** as cores, a fonte, os logos ou o layout do gov.br.
+  Todas as regras visuais estão em `docs/DESIGN.md`.
 - O rodapé sempre diz que o site não é do governo.
 - Ícones da biblioteca Lucide (https://lucide.dev/icons). Ícone novo citado no conteúdo → adicionar em
   `src/components/icons.jsx`.

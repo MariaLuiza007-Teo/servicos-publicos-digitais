@@ -52,15 +52,18 @@ As referências completas estão no documento "Conteúdo Teórico" da equipe.
 | Mascarar CPF, cartão e e-mail no front e no back | LGPD e ensino pelo exemplo: o próprio site protege os dados |
 | Sem login, analytics ou cookies | Nada a proteger = nada a vazar; público menor de idade |
 | Identidade visual própria (verde-azulado), sem logos do governo | Não imitar o gov.br, que é justamente o que ensinamos a desconfiar |
+| Visual calmo e simples, com layout próprio para computador (2026-11-08) | O primeiro visual parecia "celular esticado" no computador; o público tem medo de errar, então nada pode gritar (ver `DESIGN.md`) |
+| Site na Netlify e API no Render (sem Vercel) | Planos gratuitos; a equipe não consegue acessar a conta da Vercel (ver `DEPLOY.md`) |
 | Links dos serviços conferidos com data (`conferidoEm`) | Endereços do governo mudam; a data mostra quando revisar |
 
 ## Situação e próximos passos
 
-Atualizado em 2026-11-07.
+Atualizado em 2026-11-08. O novo design do frontend está pronto (ver `DESIGN.md`).
 
-1. **Alimentar o RAG** (próxima etapa, planejada para 2026-11-08): escrever os documentos em
-   `backend/rag/documentos/` seguindo o `_MODELO.md` e rodar `npm run rag:ingest`.
-2. Instalar o Ollama e o modelo Llama nos computadores da dupla, ou criar uma chave na Groq.
-3. Testar o assistente com perguntas reais dos alunos (as dúvidas anotadas na palestra são ótimas).
-4. Conferir à mão o link do e-Título (o site do TSE bloqueia conferência automática).
-5. Publicar o site e gerar um QR Code para a cartilha (ver `DEPLOY.md`).
+1. **Finalizar o frontend:** conferir à mão o link do e-Título (o site do TSE bloqueia conferência
+   automática), fazer o título da aba do navegador mudar em cada página e testar num celular de verdade.
+2. **Alimentar o RAG:** escrever os documentos em `backend/rag/documentos/` seguindo o `_MODELO.md` e
+   rodar `npm run rag:ingest`.
+3. Instalar o Ollama e o modelo Llama nos computadores da dupla, ou criar uma chave na Groq.
+4. Testar o assistente com perguntas reais dos alunos (as dúvidas anotadas na palestra são ótimas).
+5. Publicar o site na Netlify e a API no Render, e gerar um QR Code para a cartilha (ver `DEPLOY.md`).
