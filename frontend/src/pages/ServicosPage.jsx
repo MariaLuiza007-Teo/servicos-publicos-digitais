@@ -49,77 +49,85 @@ export function ServicosPage() {
         </p>
       </header>
 
-      <div className="filters">
-        <label className="search">
-          <Search size={20} aria-hidden="true" />
-          <span className="sr-only">Buscar serviço</span>
-          <input
-            type="search"
-            value={busca}
-            onChange={(event) => setBusca(event.target.value)}
-            placeholder="Buscar: vacina, emprego, ENEM..."
-          />
-        </label>
-        <div className="filter-chips" role="group" aria-label="Filtrar por categoria">
-          {[{ id: 'todas', nome: 'Todas' }, ...categorias].map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className="filter-chip"
-              aria-pressed={categoria === item.id}
-              onClick={() => setCategoria(item.id)}
-            >
-              {item.nome}
-            </button>
-          ))}
+      <div className="servicos-layout">
+        <div className="filters">
+          <label className="search">
+            <Search size={20} aria-hidden="true" />
+            <span className="sr-only">Buscar serviço</span>
+            <input
+              type="search"
+              value={busca}
+              onChange={(event) => setBusca(event.target.value)}
+              placeholder="Ex.: vacina, ENEM"
+            />
+          </label>
+          <p className="filters__title" id="titulo-categorias">
+            Categorias
+          </p>
+          <div className="filter-chips" role="group" aria-labelledby="titulo-categorias">
+            {[{ id: 'todas', nome: 'Todas' }, ...categorias].map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className="filter-chip"
+                aria-pressed={categoria === item.id}
+                onClick={() => setCategoria(item.id)}
+              >
+                {item.icone && <Icon name={item.icone} size={16} />}
+                {item.nome}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="sr-only" aria-live="polite">
+            {filtrados.length} serviço(s) encontrado(s).
+          </p>
+
+          {filtrados.length === 0 ? (
+            <div className="empty-state">
+              <p>Nenhum serviço encontrado.</p>
+              <p>
+                Tente outra palavra ou pergunte ao assistente <Link to="/assistente">Qual serviço eu preciso?</Link>
+              </p>
+            </div>
+          ) : (
+            <ul className="service-grid">
+              {filtrados.map((servico) => {
+                const cat = getCategoria(servico.categoria);
+                return (
+                  <li key={servico.id} id={servico.id} tabIndex={-1} className="card service-card">
+                    <span className={`tag tag--${servico.categoria}`}>
+                      <Icon name={cat?.icone} size={14} />
+                      {cat?.nome}
+                    </span>
+                    <h2 className="service-card__title">{servico.nome}</h2>
+                    <p>{servico.descricao}</p>
+                    <dl className="service-card__facts">
+                      <dt>Para quem</dt>
+                      <dd>{servico.paraQuem}</dd>
+                      {servico.app && (
+                        <>
+                          <dt>Aplicativo</dt>
+                          <dd>{servico.app}</dd>
+                        </>
+                      )}
+                    </dl>
+                    <p className="service-card__warning">
+                      <TriangleAlert size={16} aria-hidden="true" />
+                      <span>{servico.cuidado}</span>
+                    </p>
+                    <ExternalLink href={servico.onde.url} className="button button--ghost service-card__cta">
+                      Acessar {hostOf(servico.onde.url)}
+                    </ExternalLink>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </div>
-
-      <p className="sr-only" aria-live="polite">
-        {filtrados.length} serviço(s) encontrado(s).
-      </p>
-
-      {filtrados.length === 0 ? (
-        <div className="empty-state">
-          <p>Nenhum serviço encontrado.</p>
-          <p>
-            Tente outra palavra ou pergunte ao assistente <Link to="/assistente">Qual serviço eu preciso?</Link>
-          </p>
-        </div>
-      ) : (
-        <ul className="service-grid">
-          {filtrados.map((servico) => {
-            const cat = getCategoria(servico.categoria);
-            return (
-              <li key={servico.id} id={servico.id} tabIndex={-1} className="card service-card">
-                <span className={`tag tag--${servico.categoria}`}>
-                  <Icon name={cat?.icone} size={14} />
-                  {cat?.nome}
-                </span>
-                <h2 className="service-card__title">{servico.nome}</h2>
-                <p>{servico.descricao}</p>
-                <dl className="service-card__facts">
-                  <dt>Para quem</dt>
-                  <dd>{servico.paraQuem}</dd>
-                  {servico.app && (
-                    <>
-                      <dt>Aplicativo</dt>
-                      <dd>{servico.app}</dd>
-                    </>
-                  )}
-                </dl>
-                <p className="service-card__warning">
-                  <TriangleAlert size={16} aria-hidden="true" />
-                  <span>{servico.cuidado}</span>
-                </p>
-                <ExternalLink href={servico.onde.url} className="button button--primary service-card__cta">
-                  Acessar {hostOf(servico.onde.url)}
-                </ExternalLink>
-              </li>
-            );
-          })}
-        </ul>
-      )}
     </div>
   );
 }

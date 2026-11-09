@@ -1,0 +1,5 @@
+# Publicação do site na Netlify (veja docs/DEPLOY.md).
+# As rotas como /servicos são resolvidas por frontend/public/_redirects.
+[build]
+  command = "npm run build"
+  publish = "frontend/dist"

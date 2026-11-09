@@ -4,7 +4,7 @@ O site tem duas partes que podem ficar em lugares diferentes:
 
 | Parte | O que é | Onde hospedar (planos gratuitos) |
 | --- | --- | --- |
-| Frontend | Arquivos estáticos (`frontend/dist`) | Vercel ou Netlify |
+| Frontend | Arquivos estáticos (`frontend/dist`) | Netlify (ou Render, como site estático) |
 | API | Servidor Node.js | Render ou Railway |
 
 Guia, Serviços e Verificador funcionam **só com o frontend**. A API é necessária apenas para o assistente.
@@ -21,7 +21,7 @@ Guia, Serviços e Verificador funcionam **só com o frontend**. A API é necess�
    | --- | --- |
    | `LLM_PROVIDER` | `groq` |
    | `LLM_API_KEY` | sua chave da Groq |
-   | `CORS_ORIGIN` | endereço do site publicado, ex.: `https://guia-cidadao.vercel.app` |
+   | `CORS_ORIGIN` | endereço do site publicado, ex.: `https://guia-cidadao.netlify.app` |
    | `TRUST_PROXY` | `1` |
    | `EMBEDDINGS_PROVIDER` | `none` |
 
@@ -32,18 +32,28 @@ Guia, Serviços e Verificador funcionam **só com o frontend**. A API é necess�
 No plano gratuito do Render, a API "dorme" depois de um tempo parada e a primeira pergunta pode
 demorar cerca de 1 minuto. **No dia da apresentação, abra o assistente alguns minutos antes.**
 
-## Frontend (exemplo: Vercel)
+## Frontend (Netlify)
 
-1. Novo projeto apontando para o repositório.
-2. Configuração:
-   - Build command: `npm run build`
-   - Output directory: `frontend/dist`
-3. Variável de ambiente: `VITE_API_URL` = endereço da API (sem `/` no final).
-4. O site usa rotas como `/servicos`. O host precisa devolver o `index.html` para qualquer caminho:
-   - **Netlify:** já resolvido pelo arquivo `frontend/public/_redirects`.
-   - **Vercel:** crie um `vercel.json` na raiz com
-     `{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }`.
-   - **GitHub Pages** não suporta isso direito. Prefira Vercel ou Netlify.
+1. Em https://app.netlify.com, **Add new site → Import an existing project** e escolha o repositório
+   do GitHub.
+2. Não precisa preencher a configuração: o arquivo `netlify.toml` na raiz já diz o comando de build
+   (`npm run build`) e a pasta publicada (`frontend/dist`).
+3. Em **Site configuration → Environment variables**: `VITE_API_URL` = endereço da API (sem `/` no
+   final). Depois de criar a variável, faça um novo deploy para ela valer.
+4. O site usa rotas como `/servicos`. O arquivo `frontend/public/_redirects` faz a Netlify devolver o
+   `index.html` para qualquer caminho, então recarregar a página não dá erro 404.
+
+### Alternativa: Render (mesma conta da API)
+
+Se preferirem ter tudo num lugar só, o Render também publica sites estáticos:
+
+1. **New → Static Site** apontando para o repositório.
+2. Build command: `npm install && npm run build`. Publish directory: `frontend/dist`.
+3. Variável de ambiente `VITE_API_URL`, como na Netlify.
+4. Em **Redirects/Rewrites**, adicione uma regra: Source `/*`, Destination `/index.html`, Action
+   **Rewrite**. (O Render não lê o arquivo `_redirects`.)
+
+**GitHub Pages** não devolve o `index.html` para outras rotas. Prefira Netlify ou Render.
 
 Depois de publicar, atualize o `CORS_ORIGIN` da API com o endereço final do site.
 
