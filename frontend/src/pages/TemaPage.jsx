@@ -4,6 +4,7 @@ import { Callout } from '../components/Callout.jsx';
 import { ExternalLink } from '../components/ExternalLink.jsx';
 import { Icon } from '../components/icons.jsx';
 import { temas } from '../data/temas.js';
+import { usePageTitle } from '../lib/usePageTitle.js';
 import { NotFound } from './NotFound.jsx';
 
 function Secao({ secao }) {
@@ -29,6 +30,8 @@ function Secao({ secao }) {
 export function TemaPage() {
   const { temaId } = useParams();
   const index = temas.findIndex((tema) => tema.id === temaId);
+  // O hook vem antes do "return" antecipado (regra dos hooks do React).
+  usePageTitle(index < 0 ? 'Página não encontrada' : temas[index].titulo);
   if (index < 0) return <NotFound />;
 
   const tema = temas[index];

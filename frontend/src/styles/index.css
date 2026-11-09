@@ -1203,6 +1203,12 @@ textarea {
   background: var(--alerta-bg);
   color: var(--alerta);
 }
+.chat__offline {
+  padding: 0 1.1rem;
+}
+.chat__offline .callout {
+  margin: 0 0 1rem;
+}
 .suggestions {
   padding: 0 1.1rem 1rem;
 }

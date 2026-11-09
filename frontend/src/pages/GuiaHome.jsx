@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import { categorias, servicos } from '../data/servicos.js';
 import { temas } from '../data/temas.js';
+import { usePageTitle } from '../lib/usePageTitle.js';
 
 export function GuiaHome() {
+  usePageTitle();
   const destaques = servicos.filter((servico) => servico.destaque);
 
   return (

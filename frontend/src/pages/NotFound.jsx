@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../lib/usePageTitle.js';
 
 export function NotFound() {
+  usePageTitle('Página não encontrada');
   return (
     <div className="container page page--narrow empty-state">
       <h1>Página não encontrada</h1>

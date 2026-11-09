@@ -2,6 +2,7 @@ import { CircleAlert, CircleCheck, Info, Lock, ScanSearch, ShieldAlert, ShieldCh
 import { useState } from 'react';
 import { Callout } from '../components/Callout.jsx';
 import { analyzeUrl, extractUrls, VERDICTS } from '../lib/linkChecker.js';
+import { usePageTitle } from '../lib/usePageTitle.js';
 
 const EXEMPLOS = [
   { rotulo: 'Site do governo', valor: 'https://meususdigital.saude.gov.br' },
@@ -128,6 +129,7 @@ function Result({ result }) {
 }
 
 export function VerificadorPage() {
+  usePageTitle('Esse link é oficial?');
   const [input, setInput] = useState('');
   const [results, setResults] = useState(null);
 

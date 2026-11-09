@@ -58,12 +58,16 @@ As referências completas estão no documento "Conteúdo Teórico" da equipe.
 
 ## Situação e próximos passos
 
-Atualizado em 2026-11-08. O novo design do frontend está pronto (ver `DESIGN.md`).
+Atualizado em 2026-11-08. **O frontend está finalizado** (novo design, links conferidos, título da aba
+por página, assistente que avisa quando a API está fora do ar).
 
-1. **Finalizar o frontend:** conferir à mão o link do e-Título (o site do TSE bloqueia conferência
-   automática), fazer o título da aba do navegador mudar em cada página e testar num celular de verdade.
-2. **Alimentar o RAG:** escrever os documentos em `backend/rag/documentos/` seguindo o `_MODELO.md` e
-   rodar `npm run rag:ingest`.
-3. Instalar o Ollama e o modelo Llama nos computadores da dupla, ou criar uma chave na Groq.
-4. Testar o assistente com perguntas reais dos alunos (as dúvidas anotadas na palestra são ótimas).
-5. Publicar o site na Netlify e a API no Render, e gerar um QR Code para a cartilha (ver `DEPLOY.md`).
+1. **Publicar o site na Netlify.** Feito pela dona do repositório no GitHub, seguindo `DEPLOY.md`
+   (seção 1). O site pode ir ao ar antes do assistente: a aba dele mostra "fora do ar" de forma clara.
+2. Testar o site publicado num celular de verdade e gerar o QR Code para a cartilha.
+3. **Backend do assistente.** A equipe está avaliando fazer um novo backend (ex.: em Python, em outro
+   projeto) em vez de usar o `backend/` em Node daqui. Qualquer que seja, ele precisa seguir o
+   "Contrato da API" em `ARQUITETURA.md`; assim o frontend não muda.
+4. **Alimentar o RAG:** escrever os documentos da base (a lista sugerida, com fontes, está em
+   `backend/rag/documentos/README.md`).
+5. Ligar uma IA de verdade (Groq na nuvem ou Ollama local) e testar com perguntas reais dos alunos.
+6. Publicar a API e colocar o endereço dela em `VITE_API_URL` na Netlify (`DEPLOY.md`, seção 2).

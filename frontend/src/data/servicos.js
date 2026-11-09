@@ -107,11 +107,14 @@ export const servicos = [
     categoria: 'cidadania',
     descricao: 'Título de eleitor digital, local de votação e situação eleitoral.',
     paraQuem: 'Eleitores. Com 16 e 17 anos o voto é facultativo; dos 18 aos 70, obrigatório.',
-    // O site do TSE bloqueia conferência automática: confira este link manualmente.
-    onde: { rotulo: 'e-Título no site do TSE', url: 'https://www.tse.jus.br/servicos-eleitorais/e-titulo' },
+    // O site do TSE bloqueia conferência automática (responde 403 a scripts): confira este link num navegador.
+    onde: {
+      rotulo: 'Aplicativo e-Título no site do TSE',
+      url: 'https://www.tse.jus.br/servicos-eleitorais/servicos/aplicativo-e-titulo',
+    },
     app: 'e-Título',
     cuidado: 'A Justiça Eleitoral usa endereços que terminam em .jus.br.',
-    conferidoEm: null,
+    conferidoEm: '2026-11-08',
   },
   {
     id: 'cpf',

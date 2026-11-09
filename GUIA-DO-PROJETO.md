@@ -118,15 +118,21 @@ lista "Antes de terminar uma mudança visual" do `docs/DESIGN.md` (celular, comp
 
 ## Situação atual (atualize ao terminar uma etapa)
 
-- [x] Estrutura do site, 3 abas, conteúdo dos 5 temas e 15 serviços (links conferidos em 2026-11-07,
-      exceto e-Título — o site do TSE bloqueia verificação automática; conferir à mão).
-- [x] Backend com streaming, RAG (BM25 + embeddings opcionais), modo mock, mascaramento de dados.
+- [x] Estrutura do site, 3 abas, conteúdo dos 5 temas e 15 serviços.
+- [x] Backend em Node com streaming, RAG (BM25 + embeddings opcionais), modo mock, mascaramento de dados.
 - [x] Novo design (2026-11-08): visual mais calmo e layout próprio para computador. Regras em `docs/DESIGN.md`.
-- [ ] Frontend: conferir à mão o link do e-Título, título da aba do navegador mudar em cada página,
-      testar num celular de verdade.
-- [ ] Escrever os documentos do RAG (`backend/rag/documentos/`) e rodar o ingest.
-- [ ] Instalar Ollama + Llama nos computadores da equipe (ou criar chave na Groq) e testar respostas reais.
-- [ ] Publicar o site na Netlify e a API no Render (ver `docs/DEPLOY.md`). Vercel não será usada.
+- [x] **Frontend finalizado (2026-11-08):** todos os links oficiais conferidos (o do e-Título foi
+      corrigido), título da aba muda em cada página, assistente com "Tentar conectar de novo" quando a API
+      está fora do ar, teste do `privacy.js` do frontend (inclui conferir que front e back mascaram igual).
+- [ ] **Próximo passo: publicar o site na Netlify.** Quem faz é a dona do repositório no GitHub; o passo
+      a passo está em `docs/DEPLOY.md` (seção 1). Pode publicar antes da API existir.
+- [ ] Testar o site publicado num celular de verdade (A++ e modo escuro).
+- [ ] Backend do assistente: a equipe pode usar o `backend/` em Node daqui ou fazer outro (ex.: Python, em
+      projeto separado). Qualquer um precisa seguir o "Contrato da API" em `docs/ARQUITETURA.md`.
+- [ ] Escrever os documentos do RAG (`backend/rag/documentos/`) e ligar uma IA de verdade (Groq ou Ollama).
+- [ ] Publicar a API e colocar o endereço dela em `VITE_API_URL` na Netlify (ver `docs/DEPLOY.md`, seção 2).
+
+Hospedagem: site na **Netlify**, API no **Render**. A Vercel não será usada.
 
 ## Documentação
 

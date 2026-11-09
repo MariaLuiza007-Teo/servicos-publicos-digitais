@@ -46,6 +46,73 @@ Dá para rodar um Llama pequeno direto no navegador (ex.: WebLLM com WebGPU), ma
 8. O front mostra o texto conforme chega e lista as fontes. Links que não terminam em `.gov.br` nas
    respostas ganham o selo "não é .gov.br", usando o mesmo código do verificador.
 
+## Contrato da API (o que o frontend espera)
+
+O frontend só conversa com a API por `frontend/src/lib/chatApi.js`, usando o endereço em `VITE_API_URL`.
+**Qualquer backend** (o Node deste repositório ou um novo, em Python ou outra linguagem) funciona com o
+site se seguir exatamente isto. Mudou o contrato? Mude o `chatApi.js` junto.
+
+### `GET /api/health`
+
+Diz se a API está no ar. Resposta `200` com JSON:
+
+```json
+{
+  "ok": true,
+  "llm": { "provider": "groq", "model": "llama-3.3-70b-versatile" },
+  "rag": { "ready": true, "documents": 13, "chunks": 80, "createdAt": "2026-11-08T12:00:00Z", "retriever": "palavras-chave" }
+}
+```
+
+O frontend usa `llm.provider` (se for `"mock"`, mostra "Modo de demonstração"), `llm.model` (aparece
+na barra de status) e `rag.ready` (se `false`, mostra "base de conhecimento em construção"). Se a
+chamada falhar ou não vier JSON, a aba mostra "Assistente fora do ar".
+
+### `POST /api/chat`
+
+Pedido (`Content-Type: application/json`), com as últimas mensagens da conversa (a última é sempre da
+pessoa):
+
+```json
+{ "messages": [{ "role": "user", "content": "Vou fazer o ENEM. O que eu preciso?" }] }
+```
+
+- **Erro antes de responder** (pedido inválido, limite de uso etc.): status `4xx`/`5xx` com JSON
+  `{ "error": "mensagem em português para mostrar à pessoa" }`. Limite de uso usa `429`.
+- **Resposta normal:** status `200` com `Content-Type: text/event-stream` (Server-Sent Events). Cada
+  evento é `event: NOME`, `data: JSON` e uma linha em branco, nesta ordem:
+
+  | Evento | `data` | Quando |
+  | --- | --- | --- |
+  | `meta` | `{ "sources": [{ "title": "ENEM", "url": "https://www.gov.br/inep/...", "category": "educacao" }], "retrieval": "palavras-chave", "ragReady": true, "masked": [] }` | Uma vez, antes do texto. `sources` vira a lista "Fontes consultadas" |
+  | `token` | `{ "text": "pedaço da resposta" }` | Várias vezes, conforme o modelo escreve (texto em Markdown) |
+  | `done` | `{}` | Fim normal |
+  | `error` | `{ "message": "mensagem em português" }` | Fim com erro no meio da resposta |
+
+  Exemplo do que passa pela rede:
+
+  ```
+  event: meta
+  data: {"sources":[],"retrieval":"sem-base","ragReady":false,"masked":[]}
+
+  event: token
+  data: {"text":"Para o ENEM, "}
+
+  event: done
+  data: {}
+  ```
+
+### Obrigações de qualquer backend
+
+- **CORS:** aceitar chamadas do endereço do site publicado (ex.: `https://guia-cidadao-digital.netlify.app`)
+  e de `http://localhost:5173` em desenvolvimento.
+- **Mascarar de novo** CPF, cartão e e-mail antes de enviar à IA, com as mesmas regras de
+  `backend/src/utils/privacy.js` (o frontend já mascara, mas o backend não pode confiar nisso).
+- **Não gravar** o conteúdo das perguntas em log nem em banco.
+- **Manter as regras de segurança do prompt** (`backend/src/prompts/system.js`, itens 3 a 7).
+- **Chave da IA só no servidor**, em variável de ambiente.
+- Limitar tamanho: até 1000 caracteres por mensagem e as 8 últimas mensagens.
+
 ## Por que essas escolhas técnicas
 
 - **Formato OpenAI** (`/chat/completions`): Ollama, Groq, OpenRouter, Together e outros aceitam. Trocar de

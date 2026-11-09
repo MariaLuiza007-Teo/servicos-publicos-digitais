@@ -7,6 +7,7 @@ import { ExternalLink } from '../components/ExternalLink.jsx';
 import { getHealth, streamChat } from '../lib/chatApi.js';
 import { analyzeUrl } from '../lib/linkChecker.js';
 import { MASK_NAMES, maskSensitive } from '../lib/privacy.js';
+import { usePageTitle } from '../lib/usePageTitle.js';
 
 const MAX_CHARS = 1000;
 
@@ -33,13 +34,18 @@ function MarkdownLink({ href = '', children }) {
   );
 }
 
-function StatusBar({ health }) {
+function StatusBar({ health, onReconnect }) {
   if (health.status === 'checking') return <p className="status">Conectando ao assistente...</p>;
   if (health.status === 'offline') {
     return (
-      <p className="status status--offline">
-        <span className="status__dot" aria-hidden="true" /> Assistente fora do ar no momento.
-      </p>
+      <>
+        <p className="status status--offline">
+          <span className="status__dot" aria-hidden="true" /> Assistente fora do ar no momento.
+        </p>
+        <button type="button" className="button button--small button--ghost" onClick={onReconnect}>
+          <RotateCcw size={16} aria-hidden="true" /> Tentar conectar de novo
+        </button>
+      </>
     );
   }
   const demo = health.llm?.provider === 'mock';
@@ -121,15 +127,18 @@ function Message({ message, onRetry }) {
 }
 
 export function AssistentePage() {
+  usePageTitle('Qual serviço eu preciso?');
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [streaming, setStreaming] = useState(false);
   const [health, setHealth] = useState({ status: 'checking' });
+  const [healthAttempt, setHealthAttempt] = useState(0);
   const [announcement, setAnnouncement] = useState('');
   const controllerRef = useRef(null);
   const listRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Confere se a API está no ar. Roda de novo quando a pessoa clica em "Tentar conectar de novo".
   useEffect(() => {
     const controller = new AbortController();
     getHealth({ signal: controller.signal })
@@ -138,7 +147,12 @@ export function AssistentePage() {
         if (error.name !== 'AbortError') setHealth({ status: 'offline' });
       });
     return () => controller.abort();
-  }, []);
+  }, [healthAttempt]);
+
+  function reconnect() {
+    setHealth({ status: 'checking' });
+    setHealthAttempt((attempt) => attempt + 1);
+  }
 
   useEffect(() => () => controllerRef.current?.abort(), []);
 
@@ -236,7 +250,7 @@ export function AssistentePage() {
 
       <section className="chat card" aria-label="Conversa com o assistente">
         <div className="chat__top">
-          <StatusBar health={health} />
+          <StatusBar health={health} onReconnect={reconnect} />
           {messages.length > 0 && (
             <button type="button" className="button button--small button--ghost" onClick={reset}>
               <RotateCcw size={16} aria-hidden="true" /> Nova conversa
@@ -258,6 +272,17 @@ export function AssistentePage() {
             <Message key={message.id} message={message} onRetry={() => retry(message)} />
           ))}
         </ul>
+
+        {health.status === 'offline' && (
+          <div className="chat__offline">
+            <Callout variant="info">
+              <p>
+                Enquanto o assistente não volta, procure no{' '}
+                <Link to="/servicos">catálogo de serviços</Link> ou leia os <Link to="/">temas do guia</Link>.
+              </p>
+            </Callout>
+          </div>
+        )}
 
         {messages.length === 0 && (
           <div className="suggestions">

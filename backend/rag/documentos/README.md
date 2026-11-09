@@ -34,7 +34,7 @@ Ela está **vazia de propósito**: a alimentação da base é a próxima etapa d
 | `pe-de-meia.md` | Quem recebe e onde consultar | https://www.gov.br/mec/pt-br/pe-de-meia |
 | `carteira-de-trabalho-digital.md` | Contratos, vagas e primeiro emprego | https://www.gov.br/trabalho-e-emprego/pt-br/servicos/trabalhador/carteira-de-trabalho |
 | `meu-sus-digital.md` | Vacinação e histórico de saúde | https://meususdigital.saude.gov.br |
-| `e-titulo.md` | Título de eleitor digital e voto aos 16 anos | https://www.tse.jus.br/servicos-eleitorais/e-titulo |
+| `e-titulo.md` | Título de eleitor digital e voto aos 16 anos | https://www.tse.jus.br/servicos-eleitorais/servicos/aplicativo-e-titulo |
 | `cpf.md` | Consultar e regularizar o CPF | https://www.gov.br/receitafederal/pt-br/assuntos/meu-cpf |
 | `alistamento-militar.md` | Quem precisa e quando | https://alistamento.eb.mil.br |
 | `cadunico.md` | Cadastro Único e programas sociais | https://www.gov.br/mds/pt-br/acoes-e-programas/cadastro-unico |

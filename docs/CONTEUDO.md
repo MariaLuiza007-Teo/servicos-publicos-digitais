@@ -68,8 +68,17 @@ Antes de adicionar ou trocar um link:
 2. Prefira páginas estáveis do `gov.br` (página do serviço) a links profundos que mudam todo ano.
 3. Atualize `conferidoEm`.
 
-Situação em 2026-11-07: todos os links responderam, **exceto o do e-Título**. O site do TSE bloqueia
-verificação automática, então ele está com `conferidoEm: null` e precisa ser conferido à mão.
+Situação em 2026-11-08: todos os links conferidos. O do e-Título estava quebrado (o TSE mudou a página)
+e foi trocado pela página oficial do aplicativo. O site do TSE bloqueia conferência automática (responde
+403 a scripts), então os links `.jus.br` precisam ser abertos à mão num navegador.
+
+Para conferir todos de uma vez (na raiz do projeto):
+
+```bash
+grep -ohE "https://[^'\" )]+" frontend/src/data/*.js | sort -u | while read u; do echo "$(curl -s -o /dev/null -L --max-time 20 -A 'Mozilla/5.0' -w '%{http_code}' "$u") $u"; done
+```
+
+Qualquer código diferente de `200` merece uma olhada no navegador.
 
 ## Identidade visual
 

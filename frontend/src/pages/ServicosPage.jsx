@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ExternalLink, hostOf } from '../components/ExternalLink.jsx';
 import { Icon } from '../components/icons.jsx';
 import { categorias, getCategoria, servicos } from '../data/servicos.js';
+import { usePageTitle } from '../lib/usePageTitle.js';
 
 const normalize = (text) =>
   String(text)
@@ -12,6 +13,7 @@ const normalize = (text) =>
     .replace(/[̀-ͯ]/g, '');
 
 export function ServicosPage() {
+  usePageTitle('Serviços públicos digitais');
   const [busca, setBusca] = useState('');
   const [categoria, setCategoria] = useState('todas');
   const { hash } = useLocation();
