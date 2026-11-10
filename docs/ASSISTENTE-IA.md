@@ -1,4 +1,12 @@
-# Assistente "Qual serviço eu preciso?" — IA e RAG
+# Assistente "Qual serviço eu preciso?" — IA e RAG (API antiga em Node)
+
+> **Atenção (2026-11-09):** a API oficial do assistente agora é o repositório em Python
+> https://github.com/Alexandrediasss/servicos-publicos-digitais-backend, com a IA `openai/gpt-oss-20b`
+> na Groq (os modelos Llama não estão no plano gratuito da Groq). A base do RAG, o prompt e a
+> configuração da IA de verdade estão documentados **lá**.
+>
+> Este arquivo descreve a pasta `backend/` daqui, a API antiga em Node, que hoje só serve para o modo
+> demonstração no `npm run dev`. Os nomes de modelos abaixo (Llama) valem só para ela.
 
 O assistente usa um modelo **Llama** (open source, da Meta) e uma base de conhecimento própria (RAG).
 Toda a configuração fica em `backend/.env`. Nenhum código muda para trocar de modelo ou provedor.

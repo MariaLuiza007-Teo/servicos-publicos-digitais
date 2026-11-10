@@ -3,28 +3,32 @@
 ## Visão geral
 
 ```
- Celular / computador do aluno                       Servidor (API)                      Provedor de IA
+ Celular / computador do aluno                  API (outro repositório)                Provedor de IA
+ Site na Netlify (este repositório)             Python + FastAPI, no Render
 ┌─────────────────────────────────┐   /api/chat    ┌──────────────────────────────┐    ┌──────────────────┐
-│ React (frontend/)               │ ─────────────▶ │ Express (backend/)           │ ─▶ │ Ollama (local) ou │
-│                                 │  pergunta já   │ 1. valida e mascara dados    │    │ Groq (nuvem)      │
-│ • Guia + Serviços (conteúdo     │  mascarada     │ 2. RAG: busca trechos em     │ ◀─ │ modelo Llama      │
-│   estático em data/*.js)        │                │    rag/indice/indice.json    │    └──────────────────┘
-│ • Verificador de links          │ ◀───────────── │ 3. monta o prompt            │
-│   (roda só aqui, sem rede)      │  resposta aos  │ 4. repassa a resposta aos    │
-│ • Chat do assistente            │  pedaços (SSE) │    pedaços                   │
+│ React (frontend/)               │ ─────────────▶ │ servicos-publicos-digitais-  │ ─▶ │ Groq (nuvem)      │
+│                                 │  pergunta já   │ backend                      │    │ openai/           │
+│ • Guia + Serviços (conteúdo     │  mascarada     │ 1. valida e mascara dados    │ ◀─ │ gpt-oss-20b       │
+│   estático em data/*.js)        │                │ 2. RAG: busca trechos em     │    └──────────────────┘
+│ • Verificador de links          │ ◀───────────── │    rag/indice/indice.json    │
+│   (roda só aqui, sem rede)      │  resposta aos  │ 3. monta o prompt            │
+│ • Chat do assistente            │  pedaços (SSE) │ 4. repassa a resposta        │
 └─────────────────────────────────┘                └──────────────────────────────┘
 ```
 
 - **Guia, Serviços e Verificador** não precisam de servidor: são só React + dados em arquivos `.js`.
   Se a API cair, essas partes continuam funcionando.
-- **Só o assistente** usa o backend.
+- **Só o assistente** usa a API. Ela fica no repositório
+  https://github.com/Alexandrediasss/servicos-publicos-digitais-backend (Python), com documentação própria.
+- A pasta `backend/` deste repositório é a **API antiga em Node**: faz a mesma coisa e segue o mesmo
+  contrato, mas hoje só serve para o modo demonstração no `npm run dev`.
 
 ## Por que o assistente precisa de backend (e não roda só no front)
 
-Dá para rodar um Llama pequeno direto no navegador (ex.: WebLLM com WebGPU), mas para este público
-**não é viável**:
+Dá para rodar um modelo de IA pequeno direto no navegador (ex.: WebLLM com WebGPU), mas para este
+público **não é viável**:
 
-1. **Peso:** até o menor Llama útil tem cerca de 1 a 2 GB. O aluno teria que baixar isso no celular,
+1. **Peso:** até o menor modelo útil tem cerca de 1 a 2 GB. O aluno teria que baixar isso no celular,
    muitas vezes com plano de dados limitado.
 2. **Aparelho:** precisa de WebGPU e bastante memória. Celulares simples não aguentam ou ficam muito lentos.
 3. **Segredo:** com um provedor na nuvem (Groq), a chave da API ficaria exposta no código do site.
@@ -36,21 +40,19 @@ Dá para rodar um Llama pequeno direto no navegador (ex.: WebLLM com WebGPU), ma
 
 1. O aluno escreve. `maskSensitive` (front) troca CPF, cartão e e-mail por marcadores.
 2. `POST /api/chat` com as últimas mensagens.
-3. `routes/chat.js` valida, limita o tamanho e mascara de novo (`utils/privacy.js`).
-4. `rag/retriever.js` busca os 4 trechos mais relevantes no índice:
-   - **embeddings** (similaridade de cosseno), se o índice foi gerado com eles e o provedor responde;
-   - senão, **BM25** (palavras-chave), em `rag/keyword.js`.
-5. `prompts/system.js` junta regras + trechos (CONTEXTO) + conversa.
-6. `llm/client.js` chama `/chat/completions` com `stream: true`.
-7. A API manda para o front os eventos `meta` (fontes), `token` (texto), `done` ou `error`.
-8. O front mostra o texto conforme chega e lista as fontes. Links que não terminam em `.gov.br` nas
-   respostas ganham o selo "não é .gov.br", usando o mesmo código do verificador.
+3. A API valida, limita o tamanho e mascara de novo (`app/utils/privacy.py` no repo do backend).
+4. A API busca os 4 trechos mais relevantes na base do RAG (BM25, palavras-chave).
+5. A API junta regras + trechos (CONTEXTO) + conversa e chama a IA na Groq com `stream: true`.
+6. A API manda para o front os eventos `meta` (fontes), `token` (texto), `done` ou `error`.
+7. O front mostra o texto conforme chega e lista as fontes. Endereços soltos na resposta viram links
+   clicáveis (`lib/linkify.js`), e links que não terminam em `.gov.br` ganham o selo "não é .gov.br",
+   usando o mesmo código do verificador.
 
 ## Contrato da API (o que o frontend espera)
 
 O frontend só conversa com a API por `frontend/src/lib/chatApi.js`, usando o endereço em `VITE_API_URL`.
-**Qualquer backend** (o Node deste repositório ou um novo, em Python ou outra linguagem) funciona com o
-site se seguir exatamente isto. Mudou o contrato? Mude o `chatApi.js` junto.
+O backend oficial em Python segue isto (cópia em `docs/CONTRATO-API.md` do repositório dele), e a API
+antiga em Node também. Mudou o contrato? Mude o `chatApi.js` e os dois documentos juntos.
 
 ### `GET /api/health`
 
@@ -59,7 +61,7 @@ Diz se a API está no ar. Resposta `200` com JSON:
 ```json
 {
   "ok": true,
-  "llm": { "provider": "groq", "model": "llama-3.3-70b-versatile" },
+  "llm": { "provider": "groq", "model": "openai/gpt-oss-20b" },
   "rag": { "ready": true, "documents": 13, "chunks": 80, "createdAt": "2026-11-08T12:00:00Z", "retriever": "palavras-chave" }
 }
 ```
@@ -107,9 +109,9 @@ pessoa):
 - **CORS:** aceitar chamadas do endereço do site publicado (ex.: `https://guia-cidadao-digital.netlify.app`)
   e de `http://localhost:5173` em desenvolvimento.
 - **Mascarar de novo** CPF, cartão e e-mail antes de enviar à IA, com as mesmas regras de
-  `backend/src/utils/privacy.js` (o frontend já mascara, mas o backend não pode confiar nisso).
+  `frontend/src/lib/privacy.js` (o frontend já mascara, mas o backend não pode confiar nisso).
 - **Não gravar** o conteúdo das perguntas em log nem em banco.
-- **Manter as regras de segurança do prompt** (`backend/src/prompts/system.js`, itens 3 a 7).
+- **Manter as regras de segurança do prompt** (itens 3 a 7; no repo do backend, `app/prompts/system.py`).
 - **Chave da IA só no servidor**, em variável de ambiente.
 - Limitar tamanho: até 1000 caracteres por mensagem e as 8 últimas mensagens.
 

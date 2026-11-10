@@ -52,29 +52,27 @@ Quando a API estiver publicada:
 
 ## 2. Publicar a API (depois)
 
-O repositório já tem uma API pronta em Node.js (`backend/`). Se a equipe fizer **outro backend** (por
-exemplo em Python, num projeto separado), ele precisa seguir o **contrato da API** descrito em
-`docs/ARQUITETURA.md`. Assim o frontend funciona sem mudar nada: só se troca o `VITE_API_URL`.
+A API oficial é o repositório em Python
+**https://github.com/Alexandrediasss/servicos-publicos-digitais-backend**. O passo a passo de publicação
+dela no Render está no `docs/DEPLOY.md` **de lá**. Daqui, só precisa de duas coisas:
 
-### API em Node deste repositório (Render)
+1. Depois que a API estiver no ar, colocar o endereço dela em `VITE_API_URL` na Netlify e fazer um novo
+   deploy (seção 1, "E o assistente, enquanto não existe API?").
+2. No Render, a variável `CORS_ORIGIN` da API precisa ter o endereço do site na Netlify.
 
-1. Em https://render.com: **New → Web Service** apontando para o repositório.
-2. Build command: `npm install`. Start command: `npm run start:api`.
-3. Variáveis de ambiente:
+Teste: `https://SUA-API/api/health` deve responder `"ok": true`, e a aba do assistente deve mostrar
+"Assistente conectado · openai/gpt-oss-20b".
 
-   | Variável | Valor |
-   | --- | --- |
-   | `LLM_PROVIDER` | `groq` |
-   | `LLM_API_KEY` | chave da Groq (https://console.groq.com/keys) |
-   | `CORS_ORIGIN` | endereço do site, ex.: `https://guia-cidadao-digital.netlify.app` |
-   | `TRUST_PROXY` | `1` |
-   | `EMBEDDINGS_PROVIDER` | `none` |
+**No dia da apresentação:**
 
-   O Ollama não roda nos planos gratuitos. Em produção use a Groq.
-4. Teste: `https://SUA-API/api/health` deve responder `"ok": true`.
+- No plano gratuito do Render, a API "dorme" depois de um tempo parada e a primeira pergunta pode
+  demorar cerca de 1 minuto. Abra o assistente alguns minutos antes.
+- O plano gratuito da Groq aguenta poucas perguntas por minuto **no site todo** (o backend mediu cerca
+  de 6 por minuto). Se a turma inteira perguntar ao mesmo tempo, parte vai ver "O assistente está
+  indisponível agora". Combine de testar em grupos ou com poucas pessoas por vez.
 
-No plano gratuito do Render, a API "dorme" depois de um tempo parada e a primeira pergunta pode demorar
-cerca de 1 minuto. **No dia da apresentação, abra o assistente alguns minutos antes.**
+(A pasta `backend/` deste repositório é a API antiga em Node. Ela também segue o contrato e pode ser
+publicada no Render com Build `npm install` e Start `npm run start:api`, mas não é a oficial.)
 
 ## Alternativa: site no Render (mesma conta da API)
 

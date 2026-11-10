@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Callout } from '../components/Callout.jsx';
 import { ExternalLink } from '../components/ExternalLink.jsx';
 import { getHealth, streamChat } from '../lib/chatApi.js';
+import { linkifyUrls } from '../lib/linkify.js';
 import { analyzeUrl } from '../lib/linkChecker.js';
 import { MASK_NAMES, maskSensitive } from '../lib/privacy.js';
 import { usePageTitle } from '../lib/usePageTitle.js';
@@ -83,7 +84,7 @@ function Message({ message, onRetry }) {
         {message.content ? (
           <div className="msg__markdown">
             <ReactMarkdown components={{ a: MarkdownLink }} disallowedElements={['img']} unwrapDisallowed>
-              {message.content}
+              {linkifyUrls(message.content)}
             </ReactMarkdown>
           </div>
         ) : (

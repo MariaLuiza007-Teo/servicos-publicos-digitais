@@ -45,8 +45,9 @@ As referências completas estão no documento "Conteúdo Teórico" da equipe.
 | --- | --- |
 | Guia como aba principal; assistente e verificador como abas | Definido pela equipe: o Guia é a temática central |
 | React + Vite em JavaScript | Escolha da equipe; JavaScript facilita para quem está aprendendo |
-| Backend próprio (Express) para o assistente | Esconder a chave da API, rodar o RAG no servidor e não exigir que o celular do aluno baixe um modelo de vários GB (ver `ARQUITETURA.md`) |
-| Llama via API compatível com OpenAI | Trocar entre Ollama (local), Groq (nuvem) ou outro provedor só mudando o `.env` |
+| Backend próprio para o assistente | Esconder a chave da API, rodar o RAG no servidor e não exigir que o celular do aluno baixe um modelo de vários GB (ver `ARQUITETURA.md`) |
+| Backend em Python (FastAPI) num repositório separado (2026-11-09) | Escolha da equipe. Fica em https://github.com/Alexandrediasss/servicos-publicos-digitais-backend e segue o "Contrato da API" de `ARQUITETURA.md`, então o site não precisou mudar. A pasta `backend/` (Node) daqui ficou só para demonstração |
+| IA `openai/gpt-oss-20b` na Groq, em vez de Llama (2026-11-09) | Os modelos Llama dão "model not found" no plano gratuito da Groq. O gpt-oss também é open source (Apache 2.0) e responde bem em português. API compatível com OpenAI: trocar de provedor é só mudar o `.env` do backend |
 | RAG com busca por palavras-chave por padrão | Funciona sem modelo extra; embeddings (`bge-m3`) são opcionais |
 | Verificador de links 100% no navegador | Privacidade: o link suspeito nunca é aberto nem enviado a ninguém |
 | Mascarar CPF, cartão e e-mail no front e no back | LGPD e ensino pelo exemplo: o próprio site protege os dados |
@@ -58,16 +59,13 @@ As referências completas estão no documento "Conteúdo Teórico" da equipe.
 
 ## Situação e próximos passos
 
-Atualizado em 2026-11-08. **O frontend está finalizado** (novo design, links conferidos, título da aba
-por página, assistente que avisa quando a API está fora do ar).
+Atualizado em 2026-11-09. **O frontend está finalizado** e o **backend em Python está pronto** no
+repositório dele (13 documentos no RAG, IA na Groq). Os dois foram testados juntos no computador.
 
 1. **Publicar o site na Netlify.** Feito pela dona do repositório no GitHub, seguindo `DEPLOY.md`
    (seção 1). O site pode ir ao ar antes do assistente: a aba dele mostra "fora do ar" de forma clara.
-2. Testar o site publicado num celular de verdade e gerar o QR Code para a cartilha.
-3. **Backend do assistente.** A equipe está avaliando fazer um novo backend (ex.: em Python, em outro
-   projeto) em vez de usar o `backend/` em Node daqui. Qualquer que seja, ele precisa seguir o
-   "Contrato da API" em `ARQUITETURA.md`; assim o frontend não muda.
-4. **Alimentar o RAG:** escrever os documentos da base (a lista sugerida, com fontes, está em
-   `backend/rag/documentos/README.md`).
-5. Ligar uma IA de verdade (Groq na nuvem ou Ollama local) e testar com perguntas reais dos alunos.
-6. Publicar a API e colocar o endereço dela em `VITE_API_URL` na Netlify (`DEPLOY.md`, seção 2).
+2. **Publicar a API no Render** (passo a passo no repositório do backend) e ligar os dois:
+   `VITE_API_URL` na Netlify e `CORS_ORIGIN` no Render (`DEPLOY.md`, seção 2).
+3. Testar o site publicado num celular de verdade, com perguntas reais dos alunos, e gerar o QR Code
+   para a cartilha.
+4. Decidir se a pasta `backend/` (API antiga em Node) sai deste repositório.

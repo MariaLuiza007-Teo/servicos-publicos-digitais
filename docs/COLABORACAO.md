@@ -6,7 +6,8 @@ Instale:
 
 - **Node.js 22 ou mais novo:** https://nodejs.org (versão LTS)
 - **Git:** https://git-scm.com
-- **Ollama** (opcional, para o Llama local): https://ollama.com/download
+- Para mexer no assistente de IA: o repositório do backend (Python), que tem o próprio passo a passo:
+  https://github.com/Alexandrediasss/servicos-publicos-digitais-backend
 
 Depois, baixe o projeto do GitHub (repositório: https://github.com/MariaLuiza007-Teo/servicos-publicos-digitais):
 
@@ -26,8 +27,9 @@ npm install
 npm run dev
 ```
 
-Abra http://localhost:5173. Para ligar a IA, crie o `backend/.env` (veja `docs/ASSISTENTE-IA.md`).
-**Cada pessoa tem o seu `.env`.** Ele não vai para o Git.
+Abra http://localhost:5173. O assistente funciona em modo demonstração. Para testar com a IA de
+verdade, rode a API do repositório do backend (porta 3001) e aqui rode só `npm run dev:web`.
+**Cada pessoa tem o seu `.env`** (no backend). Ele não vai para o Git.
 
 ## 2. Repositório no GitHub
 
@@ -35,8 +37,13 @@ O repositório já existe: https://github.com/MariaLuiza007-Teo/servicos-publico
 A dona do repositório convida a outra pessoa em **Settings → Collaborators → Add people**. Sem esse
 convite aceito, a outra pessoa consegue baixar o código, mas não consegue enviar mudanças (push).
 
-Como o repositório é público, qualquer pessoa pode ler o código. Por isso a regra de nunca commitar o
-`backend/.env` (com a chave da IA) é ainda mais importante.
+Como o repositório é público, qualquer pessoa pode ler o código. Por isso a regra de nunca commitar um
+`.env` (com a chave da IA) é ainda mais importante, aqui e no repositório do backend.
+
+O backend (API do assistente) fica em outro repositório:
+https://github.com/Alexandrediasss/servicos-publicos-digitais-backend. No computador, deixe as duas
+pastas lado a lado (`servicos-publicos-digitais/` e `servicos-publicos-digitais-backend/`), **nunca uma
+dentro da outra**: o Git de uma pasta enxergaria a outra como arquivos novos.
 
 ## 3. Rotina de trabalho
 
@@ -64,16 +71,14 @@ Conflito acontece quando os dois mexem nas mesmas linhas do mesmo arquivo. Combi
 
 | Frente | Arquivos principais |
 | --- | --- |
-| Base de conhecimento (RAG) | `backend/rag/documentos/*.md`, `backend/rag/indice/indice.json` |
-| Assistente (IA, prompt, chat) | `backend/src/**`, `frontend/src/pages/AssistentePage.jsx`, `frontend/src/lib/chatApi.js` |
+| Base de conhecimento (RAG), IA e prompt | Repositório do backend (Python) |
+| Tela do chat | `frontend/src/pages/AssistentePage.jsx`, `frontend/src/lib/chatApi.js`, `frontend/src/lib/linkify.js` |
 | Conteúdo do Guia | `frontend/src/data/temas.js`, `frontend/src/data/servicos.js` |
 | Verificador de links | `frontend/src/lib/linkChecker.js` (+ teste), `frontend/src/pages/VerificadorPage.jsx` |
 | Visual e acessibilidade | `frontend/src/styles/index.css`, `frontend/src/components/**` |
 
 Dicas:
 
-- **RAG:** cada pessoa escreve arquivos `.md` diferentes. O `indice.json` é gerado: se der conflito nele,
-  aceite qualquer versão e rode `npm run rag:ingest` de novo antes de commitar.
 - **`temas.js` / `servicos.js`:** só uma pessoa edita cada arquivo por vez.
 - O `package-lock.json` muda quando alguém instala uma dependência. Avise a outra pessoa para rodar
   `npm install` depois do `git pull`.

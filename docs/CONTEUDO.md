@@ -91,4 +91,5 @@ Qualquer código diferente de `200` merece uma olhada no navegador.
 ## Reaproveitar no RAG
 
 O texto dos temas e serviços já está em linguagem simples e com fonte. Ele pode virar documentos do RAG
-(`backend/rag/documentos/`), mas lembre de manter os dois atualizados se uma informação mudar.
+(pasta `rag/documentos/` do **repositório do backend**). Se uma informação mudar (um link, uma regra),
+atualize os dois lugares: `servicos.js` aqui e o documento correspondente lá.

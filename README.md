@@ -6,7 +6,7 @@ Informação, 2026.2).
 | Aba | O que faz |
 | --- | --- |
 | **Guia do Cidadão** | Conteúdo em linguagem simples sobre inclusão digital, serviços públicos, direitos e dados, golpes e notícias falsas, mais um catálogo de serviços com links oficiais |
-| **Qual serviço eu preciso?** | Assistente com IA open source (Llama) que indica o serviço público certo e onde acessá-lo |
+| **Qual serviço eu preciso?** | Assistente com IA open source (`gpt-oss-20b`, na Groq) que indica o serviço público certo e onde acessá-lo. A API fica em outro repositório: [servicos-publicos-digitais-backend](https://github.com/Alexandrediasss/servicos-publicos-digitais-backend) |
 | **Esse link é oficial?** | Analisa um link ou SMS e mostra se o endereço é do governo e quais sinais de golpe ele tem |
 
 ## Como rodar no seu computador
@@ -22,7 +22,14 @@ npm run dev
 ```
 
 Abra http://localhost:5173. Sem configurar nada, o assistente funciona em **modo de demonstração**
-(sem IA). Para ligar o Llama de verdade, siga [docs/ASSISTENTE-IA.md](docs/ASSISTENTE-IA.md).
+(sem IA), usando a API antiga em Node da pasta `backend/`.
+
+Para testar com a IA de verdade, rode a API do repositório do backend (Python, porta 3001) e aqui rode
+só o site:
+
+```bash
+npm run dev:web
+```
 
 Outros comandos:
 
@@ -34,16 +41,12 @@ npm test
 npm run build
 ```
 
-```bash
-npm run rag:ingest
-```
-
 ## Documentação
 
 - [GUIA-DO-PROJETO.md](GUIA-DO-PROJETO.md): resumo do projeto, regras e estrutura (comece por aqui)
 - [docs/CONTEXTO.md](docs/CONTEXTO.md): o projeto de extensão, o público e as decisões
 - [docs/ARQUITETURA.md](docs/ARQUITETURA.md): como as partes se conectam
-- [docs/ASSISTENTE-IA.md](docs/ASSISTENTE-IA.md): Llama, Ollama, Groq e RAG
+- [docs/ASSISTENTE-IA.md](docs/ASSISTENTE-IA.md): a API antiga em Node (só demonstração; a IA de verdade está no repo do backend)
 - [docs/VERIFICADOR-LINKS.md](docs/VERIFICADOR-LINKS.md): regras do verificador de links
 - [docs/CONTEUDO.md](docs/CONTEUDO.md): como escrever e editar o conteúdo
 - [docs/COLABORACAO.md](docs/COLABORACAO.md): como trabalhar em dupla, cada um no seu computador
